@@ -1,0 +1,14 @@
+# Secrets 
+.envrc.s3creds
+.age/
+.talosconfig
+.kubeconfig
+
+# Terraform state and lock files
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+
+# OpenTofu cache
+.tofu/

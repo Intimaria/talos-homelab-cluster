@@ -1,0 +1,5 @@
+# MinIO/S3 Backend Credentials Template
+
+export AWS_ACCESS_KEY_ID="your-minio-access-key"
+export AWS_SECRET_ACCESS_KEY="your-minio-secret-key"
+export AWS_ENDPOINT_URL_S3="http://your-minio-endpoint:9000"
