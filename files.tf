@@ -1,6 +1,7 @@
 locals {
   talos = {
-    version = "v1.11.2"    schematic_id = "6dc34cdf0c3e4d831503770479378c845d2ce131540075527bddf1261747e023"
+    version = "v1.11.2"    
+    schematic_id = "6dc34cdf0c3e4d831503770479378c845d2ce131540075527bddf1261747e023"
   }
 }
 

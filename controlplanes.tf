@@ -1,23 +1,14 @@
-# Scalable control plane nodes using count
-
-locals {
-  # Generate control plane IPs dynamically: 10.50.0.2, 10.50.0.11, 10.50.0.12, etc.
-  # First CP always at .2 (API endpoint), additional CPs at .11, .12, .13...
-  controlplane_ips = concat(
-    [var.talos_cp_01_ip_addr],  # First CP at .2
-    [for i in range(1, var.controlplane_count) : "${var.worker_base_ip}.${i + 10}"] 
-  )
-}
+# Scalable control plane nodes using explicit list of IPs
 
 resource "proxmox_virtual_environment_vm" "talos_controlplanes" {
-  count = var.controlplane_count
+  count = length(var.controlplane_ips)
   
   name        = "talos-cp-${format("%02d", count.index + 1)}"
   description = "Managed by Terraform"
   tags        = ["terraform", "talos", "controlplane"]
   node_name   = var.node_name
   on_boot     = true
-  boot_order  = ["scsi0"]
+  boot_order  = ["virtio0"]
 
   cpu {
     cores = var.controlplane_cpu_cores
@@ -52,7 +43,7 @@ resource "proxmox_virtual_environment_vm" "talos_controlplanes" {
     datastore_id = var.disk_store
     ip_config {
       ipv4 {
-        address = "${local.controlplane_ips[count.index]}/24"
+        address = "${var.controlplane_ips[count.index]}/24"
         gateway = var.default_gateway
       }
       ipv6 {
@@ -66,10 +57,10 @@ resource "proxmox_virtual_environment_vm" "talos_controlplanes" {
 }
 
 resource "talos_machine_configuration_apply" "controlplanes_config_apply" {
-  count = var.controlplane_count
+  count = length(var.controlplane_ips)
   
   depends_on                  = [proxmox_virtual_environment_vm.talos_controlplanes]
   client_configuration        = talos_machine_secrets.machine_secrets.client_configuration
   machine_configuration_input = data.talos_machine_configuration.machineconfig_cp.machine_configuration
-  node                        = local.controlplane_ips[count.index]
+  node                        = var.controlplane_ips[count.index]
 }

@@ -93,13 +93,17 @@ vim secrets.sops.example.yaml
 sops -i -e secrets.sops.example.yaml
 mv secrets.sops.example.yaml secrets.sops.yaml
 
+# Copy and configure terraform variables
+cp terraform.tfvars.example terraform.tfvars
+# Edit terraform.tfvars with your actual values
+
 # Allow direnv (if using)
 direnv allow .
 ```
 
 ### 2. Configure Variables
 
-Key variables in `variables.tf`:
+Edit `terraform.tfvars` with your environment-specific values:
 
 ```hcl
 # Proxmox
@@ -115,9 +119,9 @@ default_gateway = "<dmz-gateway-ip>"  # pfSense DMZ interface IP
 # Scalability
 controlplane_count = 1  # 1 or 3+ for HA
 worker_count       = 1  # Scale as needed
-controlplane_count = 1  # 1 or 3+ for HA
-worker_count       = 1  # Scale as needed
 ```
+
+**Note:** Variable definitions are in `variables.tf`, but your actual values go in `terraform.tfvars` (which is gitignored).
 
 ### 3. Deploy the Cluster
 

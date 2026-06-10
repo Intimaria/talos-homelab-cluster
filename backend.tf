@@ -7,9 +7,12 @@ terraform {
     region                      = "us-east-1"
     skip_credentials_validation = true
     skip_metadata_api_check     = true
+    skip_requesting_account_id  = true
+    skip_region_validation      = true
     use_path_style              = true
+    use_lockfile                = true
     endpoints = {
-      s3 = "http://192.168.1.35:9000"
+      s3 = "http://192.168.1.36:9000"
     }
   }
 }

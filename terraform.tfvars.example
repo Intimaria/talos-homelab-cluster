@@ -1,0 +1,26 @@
+# Proxmox Configuration
+proxmox_api_endpoint = "https://<proxmox-ip>:8006"
+minio_endpoint     = "http://<minio-ip>:9000"
+node_name            = "proxmox"
+vm_bridge            = "vmbr1"              # DMZ network bridge
+disk_store           = "local-lvm"
+iso_store_path       = "local:iso/talos-metal-amd64.iso"
+
+# Cluster Configuration
+cluster_name    = "homelab"
+default_gateway = "<dmz-gateway-ip>"        # pfSense DMZ interface
+
+# Control Plane Configuration
+controlplane_count       = 1                # 1 for single node, 3+ for HA
+talos_cp_01_ip_addr      = "<dmz-subnet>.2" # First control plane IP
+talos_cp_01_hostname     = "talos-cp-01"
+controlplane_cpu_cores   = 2
+controlplane_memory_mb   = 4096
+controlplane_disk_size_gb = 20
+
+# Worker Configuration
+worker_count          = 1
+worker_base_ip        = "<dmz-subnet>"      # e.g., "10.50.0" (will append .3, .4, .5)
+worker_cpu_cores      = 1
+worker_memory_mb      = 2048
+worker_disk_size_gb   = 20

@@ -3,6 +3,10 @@
 .age/
 .talosconfig
 .kubeconfig
+kubeconfig-*
+
+# Terraform/OpenTofu files with real values
+terraform.tfvars
 
 # Terraform state and lock files
 .terraform/
@@ -12,3 +16,6 @@
 
 # OpenTofu cache
 .tofu/
+
+# Other
+notes
