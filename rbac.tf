@@ -80,12 +80,12 @@ resource "kubernetes_cluster_role" "dev_role" {
   # Allow managing app workloads and resources
   rule {
     api_groups = ["", "apps", "batch", "extensions", "networking.k8s.io"]
-    resources  = [
-      "deployments", "replicasets", "pods", "services", "ingresses", 
-      "configmaps", "jobs", "cronjobs", "statefulsets", 
+    resources = [
+      "deployments", "replicasets", "pods", "services", "ingresses",
+      "configmaps", "jobs", "cronjobs", "statefulsets",
       "daemonsets", "persistentvolumeclaims"
     ]
-    verbs      = ["create", "delete", "deletecollection", "get", "list", "patch", "update", "watch"]
+    verbs = ["create", "delete", "deletecollection", "get", "list", "patch", "update", "watch"]
   }
 
   # Allow read-only access to secrets cluster-wide (avoids privilege escalation warning)
@@ -94,7 +94,7 @@ resource "kubernetes_cluster_role" "dev_role" {
     resources  = ["secrets"]
     verbs      = ["get", "list", "watch"]
   }
-  
+
   # Allow debugging (exec, port-forward, logs)
   rule {
     api_groups = [""]
@@ -180,7 +180,7 @@ output "readonly_token" {
 
 resource "local_sensitive_file" "dev_kubeconfig" {
   filename = "${path.module}/kubeconfig-dev"
-  content  = yamlencode({
+  content = yamlencode({
     apiVersion = "v1"
     kind       = "Config"
     clusters = [{
@@ -209,7 +209,7 @@ resource "local_sensitive_file" "dev_kubeconfig" {
 
 resource "local_sensitive_file" "readonly_kubeconfig" {
   filename = "${path.module}/kubeconfig-readonly"
-  content  = yamlencode({
+  content = yamlencode({
     apiVersion = "v1"
     kind       = "Config"
     clusters = [{

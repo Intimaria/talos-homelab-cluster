@@ -2,7 +2,7 @@
 
 resource "proxmox_virtual_environment_vm" "talos_controlplanes" {
   count = length(var.controlplane_ips)
-  
+
   name        = "talos-cp-${format("%02d", count.index + 1)}"
   description = "Managed by Terraform"
   tags        = ["terraform", "talos", "controlplane"]
@@ -58,7 +58,7 @@ resource "proxmox_virtual_environment_vm" "talos_controlplanes" {
 
 resource "talos_machine_configuration_apply" "controlplanes_config_apply" {
   count = length(var.controlplane_ips)
-  
+
   depends_on                  = [proxmox_virtual_environment_vm.talos_controlplanes]
   client_configuration        = talos_machine_secrets.machine_secrets.client_configuration
   machine_configuration_input = data.talos_machine_configuration.machineconfig_cp.machine_configuration

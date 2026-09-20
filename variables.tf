@@ -1,7 +1,7 @@
-## PROXMOX ## 
+## PROXMOX ##
 
 variable "proxmox_api_endpoint" {
-  type     = string
+  type = string
 }
 
 variable "minio_endpoint" {
@@ -9,34 +9,34 @@ variable "minio_endpoint" {
   description = "MinIO S3 endpoint for Terraform state backend"
 }
 
-variable "node_name" { 
-  type    = string  
-  default = "proxmox" 
+variable "node_name" {
+  type    = string
+  default = "proxmox"
 }
 
-variable "vm_bridge" { 
-  type    = string  
-  default = "vmbr1" 
+variable "vm_bridge" {
+  type    = string
+  default = "vmbr1"
 }
 
-variable "disk_store" { 
-  type    = string  
-  default = "local-lvm" 
+variable "disk_store" {
+  type    = string
+  default = "local-lvm"
 }
 
-variable "iso_store_path" { 
-  type    = string  
-  default = "local:iso/talos-metal-amd64.iso" 
+variable "iso_store_path" {
+  type    = string
+  default = "local:iso/talos-metal-amd64.iso"
 }
 
-## TALOS CLUSTER ## 
+## TALOS CLUSTER ##
 
 variable "cluster_name" {
-  type    = string
+  type = string
 }
 
 variable "default_gateway" {
-  type    = string
+  type = string
 }
 
 variable "cluster_vip" {
@@ -47,7 +47,7 @@ variable "cluster_vip" {
 variable "controlplane_ips" {
   type        = list(string)
   description = "List of IP addresses for control plane nodes. Minimum 1, recommend 3 for HA."
-  
+
   validation {
     condition     = length(var.controlplane_ips) == 1 || length(var.controlplane_ips) >= 3
     error_message = "Control plane count must be 1 (single) or 3+ (HA). 2 nodes is not recommended."

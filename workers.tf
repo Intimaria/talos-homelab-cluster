@@ -2,7 +2,7 @@
 
 resource "proxmox_virtual_environment_vm" "talos_workers" {
   count = length(var.worker_ips)
-  
+
   depends_on  = [proxmox_virtual_environment_vm.talos_controlplanes]
   name        = "talos-worker-${format("%02d", count.index + 1)}"
   description = "Managed by Terraform"
@@ -59,7 +59,7 @@ resource "proxmox_virtual_environment_vm" "talos_workers" {
 
 resource "talos_machine_configuration_apply" "workers_config_apply" {
   count = length(var.worker_ips)
-  
+
   depends_on                  = [proxmox_virtual_environment_vm.talos_workers]
   client_configuration        = talos_machine_secrets.machine_secrets.client_configuration
   machine_configuration_input = data.talos_machine_configuration.machineconfig_worker.machine_configuration

@@ -40,11 +40,11 @@ This repository contains Terraform/OpenTofu configuration for deploying a scalab
 #    VPN → Tailscale → Authentication
 #    - Paste auth key in "Pre-authentication Key"
 #    - Click Save
-#    
+#
 #    VPN → Tailscale → Settings
 #    - Check "Enable Tailscale"
 #    - Click Save
-#    
+#
 #    VPN → Tailscale → Settings → Routing
 #    - Under "Advertised Routes", add your DMZ subnet (e.g., 10.50.0.0/24)
 #    - Click Save
@@ -88,7 +88,7 @@ mkdir .age
 age-keygen > .age/keys.txt
 # The `.sops.yaml` file contains the age public key used for encryption. Update it with your public key
 
-# Edit and encrypt your secrets 
+# Edit and encrypt your secrets
 vim secrets.sops.example.yaml
 sops -i -e secrets.sops.example.yaml
 mv secrets.sops.example.yaml secrets.sops.yaml
@@ -368,4 +368,3 @@ Ensure:
 ## License
 
 GPLv3
-

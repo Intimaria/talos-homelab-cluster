@@ -11,7 +11,7 @@ data "talos_machine_configuration" "machineconfig_cp" {
   cluster_endpoint = "https://${var.cluster_vip}:6443"
   machine_type     = "controlplane"
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
-  
+
   config_patches = [
     yamlencode({
       machine = {
@@ -26,7 +26,7 @@ data "talos_machine_configuration" "machineconfig_cp" {
           nameservers = [var.default_gateway]
           interfaces = [{
             deviceSelector = { physical = true }
-            vip = { ip = var.cluster_vip }
+            vip            = { ip = var.cluster_vip }
           }]
         }
       }
@@ -51,7 +51,7 @@ data "talos_machine_configuration" "machineconfig_worker" {
   cluster_endpoint = "https://${var.cluster_vip}:6443"
   machine_type     = "worker"
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
-  
+
   config_patches = [
     yamlencode({
       machine = {
@@ -86,8 +86,8 @@ resource "talos_machine_bootstrap" "bootstrap" {
 }
 
 data "talos_cluster_health" "health" {
-  depends_on           = [
-    talos_machine_bootstrap.bootstrap, 
+  depends_on = [
+    talos_machine_bootstrap.bootstrap,
     talos_machine_configuration_apply.controlplanes_config_apply,
     talos_machine_configuration_apply.workers_config_apply
   ]

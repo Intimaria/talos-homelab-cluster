@@ -27,7 +27,7 @@ provider "proxmox" {
   endpoint  = var.proxmox_api_endpoint
   insecure  = true
   api_token = data.sops_file.secrets.data["proxmox_api_token"]
-  
+
   ssh {
     agent    = false
     username = "root"
