@@ -1,0 +1,12 @@
+stages:
+  - validate
+
+tofu:
+  stage: validate
+  image:
+    name: ghcr.io/opentofu/opentofu:1.10.6
+    entrypoint: [""]
+  script:
+    - tofu fmt -check -recursive
+    - tofu init -backend=false
+    - tofu validate
